@@ -75,4 +75,26 @@ class ProductsController extends Controller
 
         return redirect('/dashboard')->with('MsgSucesso', 'Produto removido com sucesso!');
     }
+
+    public function edit($id) {
+        $produto = Product::findOrFail($id);
+
+        return view('edit', ['produto' => $produto]);
+    }
+
+    public function update(Request $request) {
+        $data = $request->all();
+
+        if($request->hasFile('imagem') && $request->file('imagem')->isValid()){
+            $requestImagem = $request->imagem;
+            $extensao = $requestImagem->extension();
+            $nomeImagem = md5($requestImagem->getClientOriginalName() . strtotime("now")) . "." . $extensao;
+            $requestImagem->move(public_path('img'), $nomeImagem);
+            $data['imagem'] = $nomeImagem;
+        }
+
+        Product::findOrFail($request->id)->update($data);
+
+        return redirect('/dashboard')->with('MsgSucesso', 'Produto editado com sucesso!');
+    }
 }

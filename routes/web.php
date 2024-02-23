@@ -23,6 +23,10 @@ Route::get('/produtos/{id}', [ProductsController::class, 'show']);
 
 Route::post('/produtos', [ProductsController::class, 'store']);
 
-Route::delete('/produtos/{id}', [ProductsController::class, 'destroy']);
+Route::get('/produtos/edit/{id}', [ProductsController::class, 'edit'])->middleware('auth');
+
+Route::put('/produtos/update/{id}', [ProductsController::class, 'update'])->middleware('auth');
+
+Route::delete('/produtos/{id}', [ProductsController::class, 'destroy'])->middleware('auth');
 
 Route::get('/dashboard', [ProductsController::class, 'dashboard'])->middleware('auth');
