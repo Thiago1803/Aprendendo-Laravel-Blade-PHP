@@ -97,4 +97,13 @@ class ProductsController extends Controller
 
         return redirect('/dashboard')->with('MsgSucesso', 'Produto editado com sucesso!');
     }
+
+    public function insertCart($id){
+        $user = auth()->user();
+        $user->productsAsCart()->attach($id);
+
+        $produto = Product::findOrFail($id);
+
+        return redirect('/dashboard')->with('MsgSucesso', $produto->titulo . ' adicionado ao carrinho!');
+    }
 }

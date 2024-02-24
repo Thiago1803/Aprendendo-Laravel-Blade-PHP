@@ -29,4 +29,6 @@ Route::put('/produtos/update/{id}', [ProductsController::class, 'update'])->midd
 
 Route::delete('/produtos/{id}', [ProductsController::class, 'destroy'])->middleware('auth');
 
+Route::post('/produtos/carrinho/{id}', [ProductsController::class, 'insertCart'])->middleware('auth');
+
 Route::get('/dashboard', [ProductsController::class, 'dashboard'])->middleware('auth');

@@ -19,7 +19,17 @@
           <p class="product-quantidade"><ion-icon name="location-outline"></ion-icon> {{ $produto->quantidade }} disponiveis</p>
           <p class="product-owner"><ion-icon name="star-outline"></ion-icon> {{ $fornecedorProduto['name'] }} </p>
           <p class="product-owner"><ion-icon name="pricetag-outline"></ion-icon> R$</p>
-          <a href="#" class="btn btn-primary" id="product-submit">Adicionar ao carrinho</a>
+          <p class="product-owner"><ion-icon name="people-outline"></ion-icon>{{ count($produto->users) }} Compras no total</p>
+          <form action="/produtos/carrinho/{{ $produto->id }}" method="POST">
+            @csrf
+            <a href="/produtos/carrinho/{{ $produto->id }}" 
+              class="btn btn-primary" 
+              id="product-submit"
+              onclick="event.preventDefault();
+              this.closest('form').submit();">
+              Adicionar ao carrinho
+            </a>
+          </form>
 
           <h3>Formas de pagamento:</h3>
           @if($produto->pagamentos != null)
